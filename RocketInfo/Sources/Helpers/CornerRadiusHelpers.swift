@@ -1,0 +1,33 @@
+//
+//  CornerRadiusHelpers.swift
+//  RocketInfo
+//
+//  Created by Daniil Davidovich on 18.08.24.
+//
+
+import SwiftUI
+
+struct CustomTopRoundedShape: Shape {
+    var cornerRadius: CGFloat
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + cornerRadius))
+        path.addArc(center: CGPoint(x: rect.minX + cornerRadius, y: rect.minY + cornerRadius),
+                    radius: cornerRadius,
+                    startAngle: .degrees(180),
+                    endAngle: .degrees(270),
+                    clockwise: false)
+        path.addLine(to: CGPoint(x: rect.maxX - cornerRadius, y: rect.minY))
+        path.addArc(center: CGPoint(x: rect.maxX - cornerRadius, y: rect.minY + cornerRadius),
+                    radius: cornerRadius,
+                    startAngle: .degrees(270),
+                    endAngle: .degrees(0),
+                    clockwise: false)
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        
+        return path
+    }
+}
